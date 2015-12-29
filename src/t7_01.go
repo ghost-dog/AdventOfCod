@@ -17,7 +17,6 @@ func main() {
 	// var inputString string
 
 	var prog [340][5]string
-	var prog_t [5]string
 
 	type node struct {
 		value int
@@ -51,12 +50,8 @@ func main() {
 		}
 		//fmt.Printf("The input was: %s", inputString)
 
-		if _, err := fmt.Sscanf(inputString, "%s %s %s %s %s", &prog_t[0], &prog_t[1], &prog_t[2], &prog_t[3], &prog_t[4]); err == nil {
+		if _, err := fmt.Sscanf(inputString, "%s %s %s -> %s", &prog[i][0], &prog[i][1], &prog[i][2], &prog[i][3]); err == nil {
 			//fmt.Printf("%s %s %s -> %s\n", prog[i][0], prog[i][1], prog[i][2], prog[i][3])
-			if prog_t[3] == "->" {
-
-			}
-
 			if n, err := strconv.Atoi(prog[i][0]); err == nil {
 				sign[prog[i][0]] = node{n, true}
 			} else {
