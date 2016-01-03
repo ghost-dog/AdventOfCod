@@ -16,7 +16,7 @@ func main() {
 	// var inputReader *bufio.Reader
 	// var inputString string
 
-	var prog [340][5]string
+	var prog [340][6]string
 	//var prog_t [5]string
 	words := map[string]string{"RSHIFT": "RSHIFT", "OR": "OR", "AND": "AND", "NOT": "NOT", "LSHIFT": "LSHIFT", "->": "->"}
 
@@ -151,45 +151,56 @@ func main() {
 	}
 	// parsing
 	exit = 0
+	al := false
+	bl := false
+	sl := false
 	for exit == 0 {
 		for i := 0; i < 340; i++ {
-			a = 0
-			al = false
-			b = 0
-			bl = false
-			s = 0
-			sl = false
-			//fmt.Printf("%s %s %s %s %s\n", prog[i][0], prog[i][1], prog[i][2], prog[i][3], prog[i][4])
-			if prog[i][1] == "->" {
-				if n, err := strconv.Atoi(prog[i][0]); err == nil {
-					a = n;
-					al = true;
-				else {
-					if nd, found := sign[prog[i][1]]; found {
-						if nd.check {
-							a = nd.value;
-							al = true;
-						}	
-					}	
+			if prog[i][5] != "1" {
+				a = 0
+				al = false
+				b = 0
+				bl = false
+				s = 0
+				sl = false
+				//fmt.Printf("%s %s %s %s %s\n", prog[i][0], prog[i][1], prog[i][2], prog[i][3], prog[i][4])
+				if prog[i][1] == "->" {
+					if n, err := strconv.Atoi(prog[i][0]); err == nil {
+						a = n
+						al = true
+					} else {
+						if nd, found := sign[prog[i][1]]; found {
+							if nd.check {
+								a = nd.value
+								al = true
+							}
+						}
+					}
+					if al {
+						if nd, found := sign[prog[i][2]]; found {
+							nd.value = a
+							nd.check = true
+							prog[i][5] = "1"
+						}
+					}
+
+				} else if prog[i][2] == "->" {
+
+				} else if prog[i][3] == "->" {
+
 				}
-				if al {
-					if nd, found := sign[prog[i][2]]; found {
-							nd.value = a;
-							nd.check = true;
-							prog[i][5] = '1'
-					}	
-				}					}
+				if n, err := strconv.Atoi(prog[i][0]); err == nil {
 
-			} else if prog[i][2] == "->" {
-
-			} else if prog[i][3] == "->" {
-
-			}	
-			if n, err := strconv.Atoi(prog[i][0]); err == nil {
+				}
 
 			}
 		}
-		exit = 1
+		if nd, found := sign[prog[i][1]]; found {
+			if nd.check {
+				fmt.Printf(" Line a %n\n", nd.value)
+				exit = 1
+			}
+		}
 	}
 	//fmt.Println(sign)
 }
